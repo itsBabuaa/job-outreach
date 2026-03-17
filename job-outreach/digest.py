@@ -26,9 +26,13 @@ def generate_digest_with_gemini(jobs: list[dict], subscriber_name: str) -> str:
     """Call Gemini API to compose a formatted email body. Raises on API error."""
     job_lines = []
     for j in jobs:
+        location = j.get("location", "") or "Remote"
         parts = [f"- {j['title']} at {j['company']}"]
+        parts.append(f"  Location: {location}")
         if j.get("salary"):
             parts.append(f"  Pay: {j['salary']}")
+        if j.get("experience"):
+            parts.append(f"  Experience: {j['experience']}")
         if j.get("requirements"):
             parts.append(f"  Requirements: {j['requirements']}")
         if j.get("summary"):
@@ -38,8 +42,9 @@ def generate_digest_with_gemini(jobs: list[dict], subscriber_name: str) -> str:
 
     prompt = (
         f"Write a friendly, professional email digest for {subscriber_name} "
-        f"with these {len(jobs)} job listings. Include the title, company, pay, "
-        f"requirements, a short summary, and application link for each:\n\n"
+        f"with these {len(jobs)} job listings targeted at India-based candidates. "
+        f"Show salary in INR where possible. Include the title, company, location, pay, "
+        f"experience level, requirements, a short summary, and application link for each:\n\n"
         + "\n\n".join(job_lines)
     )
     model = genai.GenerativeModel("gemini-1.5-flash")
@@ -49,11 +54,15 @@ def generate_digest_with_gemini(jobs: list[dict], subscriber_name: str) -> str:
 
 def generate_digest_fallback(jobs: list[dict]) -> str:
     """Plain-text fallback listing title, company, URL, salary, requirements, and summary."""
-    lines = [f"Your Job Digest ({len(jobs)} listings)\n{'=' * 40}\n"]
+    lines = [f"Your Job Digest - India ({len(jobs)} listings)\n{'=' * 40}\n"]
     for i, j in enumerate(jobs, 1):
+        location = j.get("location", "") or "Remote"
         lines.append(f"{i}. {j['title']} at {j['company']}")
+        lines.append(f"   Location: {location}")
         if j.get("salary"):
             lines.append(f"   Pay: {j['salary']}")
+        if j.get("experience"):
+            lines.append(f"   Experience: {j['experience']}")
         if j.get("requirements"):
             lines.append(f"   Requirements: {j['requirements']}")
         if j.get("summary"):
