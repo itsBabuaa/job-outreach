@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}Digest History - Job Digest Admin{% endblock %}
+{% block content %}
+<h1>Digest History</h1>
+<table>
+    <thead><tr><th>Subscriber</th><th>Date Sent</th><th>Jobs Included</th></tr></thead>
+    <tbody>
+    {% for d in digests %}
+    <tr>
+        <td>{{ d.subscribers.email if d.subscribers else 'Unknown' }}</td>
+        <td>{{ d.date_sent }}</td>
+        <td>{{ d.job_count }}</td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+<div class="pagination">
+    {% if page > 1 %}<a href="?page={{ page - 1 }}">Previous</a>{% endif %}
+    Page {{ page }} of {{ total_pages }}
+    {% if page < total_pages %}<a href="?page={{ page + 1 }}">Next</a>{% endif %}
+</div>
+{% endblock %}

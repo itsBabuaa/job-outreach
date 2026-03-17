@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Job Digest Admin{% endblock %}</title>
+    <style>
+        body { font-family: system-ui, sans-serif; max-width: 960px; margin: 0 auto; padding: 1rem; }
+        nav { display: flex; gap: 1rem; padding: 0.5rem 0; border-bottom: 1px solid #ccc; margin-bottom: 1rem; }
+        nav a { text-decoration: none; color: #0066cc; }
+        .flash { padding: 0.5rem; background: #e8f5e9; border: 1px solid #a5d6a7; margin-bottom: 1rem; }
+        table { width: 100%; border-collapse: collapse; }
+        th, td { text-align: left; padding: 0.5rem; border-bottom: 1px solid #eee; }
+        form { margin: 1rem 0; }
+        input, select, button { padding: 0.4rem; margin: 0.2rem; }
+        .pagination { margin: 1rem 0; }
+        .pagination a { margin: 0 0.3rem; }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="/">Home</a>
+        <a href="/subscribers">Subscribers</a>
+        <a href="/jobs">Jobs</a>
+        <a href="/digests">Digests</a>
+    </nav>
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}{% for msg in messages %}<div class="flash">{{ msg }}</div>{% endfor %}{% endif %}
+    {% endwith %}
+    {% block content %}{% endblock %}
+</body>
+</html>

@@ -1,0 +1,23 @@
+[project]
+name = "job-outreach"
+version = "0.1.0"
+description = "Automated Job Digest Mailer pipeline"
+requires-python = ">=3.11"
+dependencies = [
+    "requests",
+    "beautifulsoup4",
+    "supabase",
+    "google-generativeai",
+    "flask",
+    "python-dotenv",
+]
+
+[project.optional-dependencies]
+dev = [
+    "hypothesis",
+    "pytest",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"

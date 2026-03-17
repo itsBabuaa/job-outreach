@@ -1,0 +1,1 @@
+"""Job Digest Mailer package."""

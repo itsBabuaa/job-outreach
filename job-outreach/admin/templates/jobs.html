@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %}Jobs - Job Digest Admin{% endblock %}
+{% block content %}
+<h1>Scraped Job Listings</h1>
+<table>
+    <thead><tr><th>Title</th><th>Company</th><th>Pay</th><th>Source</th><th>Date</th><th>Link</th></tr></thead>
+    <tbody>
+    {% for job in jobs %}
+    <tr>
+        <td>{{ job.title }}</td>
+        <td>{{ job.company }}</td>
+        <td>{{ job.salary or 'N/A' }}</td>
+        <td>{{ job.source }}</td>
+        <td>{{ job.date_posted or 'N/A' }}</td>
+        <td><a href="{{ job.url }}" target="_blank">View</a></td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+<div class="pagination">
+    {% if page > 1 %}<a href="?page={{ page - 1 }}">Previous</a>{% endif %}
+    Page {{ page }} of {{ total_pages }}
+    {% if page < total_pages %}<a href="?page={{ page + 1 }}">Next</a>{% endif %}
+</div>
+{% endblock %}

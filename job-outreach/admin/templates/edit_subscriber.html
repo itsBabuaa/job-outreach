@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}Edit Subscriber - Job Digest Admin{% endblock %}
+{% block content %}
+<h1>Edit Subscriber</h1>
+<form method="post" action="/subscribers/{{ subscriber.id }}/edit">
+    <label>Email: <input type="email" name="email" value="{{ subscriber.email }}" required></label><br>
+    <label>Status:
+        <select name="status">
+            <option value="active" {% if subscriber.status == 'active' %}selected{% endif %}>Active</option>
+            <option value="inactive" {% if subscriber.status == 'inactive' %}selected{% endif %}>Inactive</option>
+        </select>
+    </label><br>
+    <label>Skills (comma-separated): <input type="text" name="skill_set" value="{{ subscriber.skill_set | join(', ') }}"></label><br>
+    <button type="submit">Save</button>
+    <a href="/subscribers">Cancel</a>
+</form>
+{% endblock %}

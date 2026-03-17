@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block title %}Dashboard - Job Digest Admin{% endblock %}
+{% block content %}
+<h1>Job Digest Admin</h1>
+<p>Manage subscribers, view scraped jobs, and review digest history.</p>
+<form method="post" action="/trigger">
+    <button type="submit">Trigger Pipeline Run</button>
+</form>
+{% endblock %}
