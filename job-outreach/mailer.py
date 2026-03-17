@@ -24,7 +24,7 @@ def send_email(to_email: str, subject: str, body: str) -> bool:
         msg["From"] = os.getenv("GMAIL_USER", "")
         msg["To"] = to_email
         msg["Subject"] = subject
-        msg.attach(MIMEText(body, "plain"))
+        msg.attach(MIMEText(body, "html"))
 
         with smtplib.SMTP("smtp.gmail.com", 587) as server:
             server.starttls()
