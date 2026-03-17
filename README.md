@@ -2,8 +2,6 @@
 
 Automated daily job digest pipeline that scrapes entry-level jobs from multiple sources, matches them to subscriber skills, and delivers personalized HTML email digests — focused on **India-based** and **remote** opportunities.
 
-**POWERED BY Babuaa**
-
 ---
 
 ## ✨ Features
