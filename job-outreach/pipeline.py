@@ -33,8 +33,8 @@ def run_pipeline() -> None:
         logger.critical("Failed to connect to Supabase: %s", e)
         sys.exit(1)
 
-    # 3. Scrape all jobs
-    jobs = scrape_all_jobs(config.web_sources)
+    # 3. Scrape all jobs (with LLM filtering)
+    jobs = scrape_all_jobs(config.web_sources, gemini_api_key=config.gemini_api_key)
     if not jobs:
         logger.info("No jobs scraped. Skipping digest generation.")
         return
