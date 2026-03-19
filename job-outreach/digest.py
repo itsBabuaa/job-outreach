@@ -44,7 +44,7 @@ def _job_card_html(index: int, job: dict) -> str:
     if len(summary) > 150:
         summary = summary[:150] + "..."
 
-    return f"""
+    return f'''
 <tr><td style="padding:16px 20px;border-bottom:1px solid #f0f0f0;">
   <table width="100%" cellpadding="0" cellspacing="0">
     <tr><td>
@@ -62,7 +62,7 @@ def _job_card_html(index: int, job: dict) -> str:
       <a href="{job.get('url', '#')}" style="display:inline-block;background:#667eea;color:#fff;padding:8px 20px;border-radius:5px;text-decoration:none;font-size:13px;font-weight:bold;">Apply Now →</a>
     </td></tr>
   </table>
-</td></tr>"""
+</td></tr>'''
 
 
 def match_jobs_to_skills(jobs: list[dict], skill_set: list[str]) -> list[dict]:
@@ -92,7 +92,7 @@ def generate_digest_with_gemini(jobs: list[dict], subscriber_name: str) -> str:
         f"Return ONLY the intro paragraph as plain text, no HTML:\n\n"
         + "\n".join(f"- {j['title']} at {j['company']}" for j in jobs)
     )
-    model = genai.GenerativeModel("gemini-1.5-flash")
+    model = genai.GenerativeModel("gemini-2.0-flash")
     response = model.generate_content(prompt)
     intro = response.text.strip()
 
