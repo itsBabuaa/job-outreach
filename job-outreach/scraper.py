@@ -423,7 +423,7 @@ def filter_jobs_with_llm(jobs: list[JobListing], gemini_api_key: str) -> list[Jo
     filtered_jobs: list[JobListing] = []
 
     genai.configure(api_key=gemini_api_key)
-    model = genai.GenerativeModel("gemini-1.5-flash")
+    model = genai.GenerativeModel("gemini-2.0-flash")
 
     for batch_start in range(0, len(jobs), BATCH_SIZE):
         batch = jobs[batch_start:batch_start + BATCH_SIZE]
