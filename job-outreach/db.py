@@ -17,20 +17,20 @@ def store_jobs(client: Client, jobs: list[dict]) -> int:
     """Upsert jobs into job_listings table. Returns count of new jobs."""
     if not jobs:
         return 0
-    rows = [
-        {
+    rows = []
+    for j in jobs:
+        row = {
             "url": j["url"],
             "title": j["title"],
             "company": j["company"],
             "tags": j.get("tags", []),
-            "date_posted": j.get("date_posted"),
+            "date_posted": j.get("date_posted") or None,
             "source": j.get("source", ""),
             "salary": j.get("salary", ""),
             "requirements": j.get("requirements", ""),
             "summary": j.get("summary", ""),
         }
-        for j in jobs
-    ]
+        rows.append(row)
     result = client.table("job_listings").upsert(rows, on_conflict="url").execute()
     return len(result.data) if result.data else 0
 
